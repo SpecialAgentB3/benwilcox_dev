@@ -1,0 +1,139 @@
+/* src/components/CourseSelector/CourseSelector.css */
+.course-selector-container {
+    padding: 10px;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box; /* Ensures padding and border are included in the width */
+    /* overflow: hidden; */ /* This was preventing child scrolling */
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+}
+
+.search-courses-container {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.search-courses-container input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.course-selector-toggles {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.show-groups-button {
+    background-color: #f0f0f0;
+    border: 1px solid #d9d9d9;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    min-height: 38px; /* Approx 2 lines height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.show-groups-button:hover {
+    background-color: #e6e6e6;
+}
+
+.courses-list-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* Important for flex children in a scrolling container */
+}
+
+.pinned-courses-section .separator {
+    border-bottom: 2px solid #333;
+    margin: 8px 0;
+}
+
+.course-item {
+    padding: 8px 12px;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.course-item:hover {
+    /* No background highlight on row hover */
+}
+
+.course-item-text {
+    font-size: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-grow: 1;
+    margin-left: 10px; /* Space between text and pin */
+}
+
+.pin-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+.pin-button:hover {
+    background-color: #e6f7ff; /* Highlight on button hover instead */
+}
+
+.pin-icon {
+    color: #bfbfbf; /* Default gray color for unpinned */
+    font-size: 14px;
+}
+
+.pin-icon.pinned {
+    color: #52c41a;
+}
+
+.all-courses-list {
+    list-style-type: none; /* Removes bullet points */
+    padding: 0;
+    margin: 0;
+    flex-grow: 1; /* Make list fill available space */
+    min-height: 0; /* Prevent flexbox overflow issue */
+}
+
+.all-courses-list li {
+    /* No margin-bottom to remove the gap */
+}
+
+.course-item.hover-highlight {
+    background-color: #e6f7ff; /* Restore hover effect */
+}
+
+.selector-action-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.selector-action-buttons .show-groups-button {
+    flex: 1;
+}

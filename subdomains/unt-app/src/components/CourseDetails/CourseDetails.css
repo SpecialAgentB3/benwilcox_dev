@@ -1,0 +1,61 @@
+/* src/components/CourseDetails/CourseDetails.css */
+.course-details-container {
+  padding: 15px;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.course-details-container.course-details-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #bfbfbf;
+}
+
+.course-details-code {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.course-details-name {
+  font-size: 16px;
+  color: #595959;
+  margin-bottom: 15px;
+}
+
+.course-details-columns {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.course-details-links a {
+  color: #1890ff;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 4px;
+}
+.course-details-links a:hover {
+  text-decoration: underline;
+}
+
+.course-details-stats p {
+  margin: 0 0 4px 0;
+}
+
+.course-details-hours {
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.course-details-description {
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}

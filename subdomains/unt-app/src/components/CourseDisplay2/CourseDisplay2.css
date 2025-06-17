@@ -1,0 +1,122 @@
+/* src/components/CourseDisplay2/CourseDisplay2.css */
+.course-display2-wrapper {
+    padding: 15px;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+  }
+  
+  .specifiers-and-offerings {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .specifiers-section {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex-basis: 220px; /* A bit more space for two columns */
+    flex-shrink: 0;
+  }
+  
+  .specifier-box {
+    flex: 1; /* Each specifier takes up half the space */
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* Prevents overflow issues */
+  }
+  
+  .specifier-box h4 {
+    margin: 0 0 5px 0;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .specifier-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    padding: 8px;
+    background-color: #fafafa;
+  }
+  
+  .specific-courses-display {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-content: flex-start;
+  }
+  
+  .specific-courses-display h4 {
+    display: none;
+  }
+  
+  .specific-courses-container {
+    /* No longer needed */
+  }
+  
+  .course-cell {
+    width: 130px;
+    height: 130px;
+    border: 1px solid #a0a0a0;
+    border-radius: 0; /* Sharp corners */
+    padding: 10px;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    box-sizing: border-box; /* Ensure padding is included in size */
+  }
+  
+  .course-cell a {
+    color: #1890ff;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .course-cell a:hover {
+      text-decoration: underline;
+  }
+  
+  .course-cell .faculty-name {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+  }
+  
+  .course-cell .semester-year-info,
+  .course-cell .course-name-link {
+    font-size: 12px;
+    color: #8c8c8c;
+  }
+  
+  .course-cell .course-name-link {
+    color: #1890ff;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .course-cell .course-name-link:hover {
+    text-decoration: underline;
+  }
+
+  .course-cell-name {
+    font-size: 10px;
+    color: #595959;
+    text-align: left;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-top: 4px;
+  }

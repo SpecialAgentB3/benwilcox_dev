@@ -1,0 +1,92 @@
+/* src/App.css */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f0f2f5;
+  color: #333;
+}
+
+#root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-container {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: 350px 1fr; /* Left column for pane, right for displays */
+  grid-template-rows: auto 2fr 1fr; /* Match the right column's general proportions */
+  grid-template-areas:
+    "pane header"
+    "pane display1"
+    "pane display2";
+  gap: 8px;
+  padding: 8px;
+  overflow: hidden;
+}
+
+.header-area {
+  grid-area: header;
+}
+
+.left-pane {
+  grid-area: pane;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0; /* Prevents flexbox overflow issues */
+}
+
+.course-selector-area {
+  flex-basis: 60%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.course-details-area {
+  flex-basis: 40%;
+  min-height: 0;
+  display: flex;
+}
+
+.course-display1-area {
+  grid-area: display1;
+  background-color: white;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.course-display2-area {
+  grid-area: display2;
+  background-color: white;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a8a8a8;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}

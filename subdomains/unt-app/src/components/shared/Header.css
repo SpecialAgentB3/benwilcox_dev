@@ -1,0 +1,63 @@
+/* src/components/shared/Header.css */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.header-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.header-section.left {
+  justify-content: flex-start;
+  font-size: 14px;
+  color: #8c8c8c;
+}
+
+.header-section.left a {
+  color: #1890ff;
+  text-decoration: none;
+}
+
+.header-section.left a:hover {
+  text-decoration: underline;
+}
+
+.header-section.middle {
+  justify-content: center;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.header-section.right {
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.header-section.right a,
+.header-section.right .share-button-header {
+  color: #1890ff;
+  text-decoration: none;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.header-section.right a:hover,
+.header-section.right .share-button-header:hover {
+  text-decoration: underline;
+}
+
+.share-button-header {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+} 

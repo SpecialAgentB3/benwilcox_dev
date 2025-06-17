@@ -1,0 +1,143 @@
+/* src/components/CourseDisplay1/SemesterView/SemesterView.css */
+.semester-view-header {
+    display: table-header-group;
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    width: max-content;
+    background-color: #fafafa;
+}
+
+.semester-view-header-row {
+    display: flex;
+}
+
+.semester-view-header-info {
+    width: 266px;
+    flex-shrink: 0;
+    border-right: 1px solid #d9d9d9;
+    position: sticky;
+    left: 0;
+    z-index: 31; /* Above timeline */
+    background-color: #fafafa;
+}
+
+.semester-view-header-toggles {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    z-index: 31;
+    padding: 8px;
+}
+
+.semester-view-header-timeline {
+    display: flex;
+    width: max-content;
+}
+
+.year-column-header {
+    flex-shrink: 0;
+    width: 120px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    border-right: 1px solid #d9d9d9;
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 4px;
+}
+
+.semester-view-container {
+    flex-grow: 1;
+    display: flex;
+    height: 100%;
+    width: auto;
+    min-width: max-content;
+}
+
+.year-column {
+    width: 120px;
+    flex-shrink: 0;
+    border-right: 1px solid #d9d9d9;
+    display: flex;
+    flex-direction: column;
+    background-color: #2a2a2a; /* dark gray/black for unlisted years */
+}
+
+.year-column.unlisted {
+    background-color: #606060;
+}
+
+.year-column.listed {
+    background-color: #f5f5f5; /* light gray for listed years */
+}
+
+.year-column.pre-2011 {
+    background-color: #b2b2b2; /* slightly off-white for years 2010 and earlier */
+}
+
+/* wrapper for the four semester bars in a cell */
+.semester-cell {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 2px 0;
+    box-sizing: border-box;
+}
+
+/* wrapper for each individual bar, provides margin */
+.semester-bar-wrapper {
+    flex-grow: 1;
+    padding: 2px 4px;
+    height: 25%;
+    min-height: 20px;
+    box-sizing: border-box;
+}
+
+/* base styles for both broad and specific bars */
+.semester-bar,
+.specific-semester-bar {
+    height: 100%;
+    border: 0.5px solid black;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+/* style specific to broad bars */
+.semester-bar {
+    width: 100%;
+}
+
+/* style specific to granular bars */
+.specific-semester-bar {
+    flex-grow: 1;
+}
+
+/* --- colors for each semester (unfilled) --- */
+.semester-bar.fall, .specific-semester-bar.fall { background-color: #fffbe6; }
+.semester-bar.summer, .specific-semester-bar.summer { background-color: #feffe6; }
+.semester-bar.spring, .specific-semester-bar.spring { background-color: #f6ffed; }
+.semester-bar.winter, .specific-semester-bar.winter { background-color: #e6f7ff; }
+
+/* --- darker "filled" state --- */
+.semester-bar.fall.filled, .specific-semester-bar.fall.filled { background-color: #ffc53d; }
+.semester-bar.summer.filled, .specific-semester-bar.summer.filled { background-color: #fadb14; }
+.semester-bar.spring.filled, .specific-semester-bar.spring.filled { background-color: #95de64; }
+.semester-bar.winter.filled, .specific-semester-bar.winter.filled { background-color: #69c0ff; }
+
+/* granular view container */
+.granular-view-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    gap: 2px;
+}
