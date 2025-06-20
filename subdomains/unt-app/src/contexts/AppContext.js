@@ -13,6 +13,8 @@ export const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const { db, loading: dbLoading } = useDatabase();
+  const [loadingProgress, setLoadingProgress] = useState(0);
+  const [loadingMessage, setLoadingMessage] = useState('');
   const [semesterMapping, setSemesterMapping] = useState([]);
 
   // All Courses state
@@ -61,6 +63,8 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     if (db) {
       const initializeSearch = async () => {
+        setLoadingMessage('Loading courses...');
+        setLoadingProgress(25);
         // 1. Fetch all main courses and create a lookup map
         const courses = await fetchAllCourses(db);
         const courseMap = new Map();
@@ -71,9 +75,13 @@ export const AppProvider = ({ children }) => {
         setFilteredCourses(courses);
         setMainCourseMap(courseMap);
 
+        setLoadingMessage('Fetching catalog data...');
+        setLoadingProgress(50);
         // 2. Fetch all unique catalog entries for searching
         const allCatalogForSearch = await fetchAllCatalogForSearch(db);
 
+        setLoadingMessage('Building search index...');
+        setLoadingProgress(75);
         // 3. Create the combined and pre-processed search index for Fuse.js
         const searchData = new Map();
         const processText = (text) => text.replace(/ - /g, ' ');
@@ -108,6 +116,7 @@ export const AppProvider = ({ children }) => {
           findAllMatches: true,
         });
         setFuse(fuseInstance);
+        setLoadingProgress(100);
       };
       initializeSearch();
     }
@@ -256,6 +265,8 @@ export const AppProvider = ({ children }) => {
   const value = {
     db,
     dbLoading,
+    loadingProgress,
+    loadingMessage,
     semesterMapping,
     allCourses,
     filteredCourses,

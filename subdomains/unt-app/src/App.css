@@ -1,74 +1,123 @@
 /* src/App.css */
-body {
+body, #root {
+  height: 100vh;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #f0f2f5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  background-color: #f0f2f5; /* App background color */
   color: #333;
 }
 
-#root {
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
+}
+.loading-container h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
 }
 
+/* --- Main Layout --- */
 .app-container {
-  flex-grow: 1;
-  display: grid;
-  grid-template-columns: 350px 1fr; /* Left column for pane, right for displays */
-  grid-template-rows: auto 2fr 1fr; /* Match the right column's general proportions */
-  grid-template-areas:
-    "pane header"
-    "pane display1"
-    "pane display2";
-  gap: 8px;
+  display: flex;
+  height: 100%;
   padding: 8px;
-  overflow: hidden;
-}
-
-.header-area {
-  grid-area: header;
-}
-
-.left-pane {
-  grid-area: pane;
-  display: flex;
-  flex-direction: column;
   gap: 8px;
-  min-height: 0; /* Prevents flexbox overflow issues */
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
-.course-selector-area {
-  flex-basis: 60%;
+.pane {
+  display: flex;
+  flex-direction: column;
   min-height: 0;
+  gap: 8px;
+}
+
+.right-pane {
+  flex-grow: 1;
+}
+
+.sub-group-right {
+  flex-grow: 1; /* Make the right-side panel group fill remaining vertical space */
+  min-height: 0;
+}
+
+/* This is the direct child of a ResizableBox and a flex item in a .pane */
+.pane-content-wrapper {
+  flex-shrink: 0;
+  overflow: hidden; /* This wrapper handles the overflow */
+  display: flex; /* It's a flex container for its child */
+}
+
+/* These panes should grow to fill the available space in their parent pane */
+.left-pane > .pane-content-wrapper:last-child,
+.right-pane > .pane-content-wrapper:last-child {
+  flex: 1 1 auto;
+}
+
+.panel-content {
+  background-color: white;
+  border-radius: 8px;
+  overflow: auto;
   display: flex;
   flex-direction: column;
 }
 
-.course-details-area {
-  flex-basis: 40%;
+.panel-content > * {
   min-height: 0;
+}
+
+.resizing-placeholder {
+  width: 100%;
+  height: 100%;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a0aec0;
+  font-style: italic;
 }
 
-.course-display1-area {
-  grid-area: display1;
-  background-color: white;
-  border: 1px solid #d9d9d9;
-  border-radius: 8px;
-  overflow: hidden;
+/* --- Resizable Handles --- */
+.handle-vertical, .handle-horizontal {
+  background-color: transparent;
+  position: relative;
+  z-index: 10;
+}
+.handle-vertical::after, .handle-horizontal::after {
+  content: '';
+  position: absolute;
+  background-color: #e5e7eb; /* A subtle, light gray line */
+  transition: background-color 0.2s ease-in-out;
+}
+.handle-vertical:hover::after, .handle-horizontal:hover::after {
+  background-color: #007bff; /* Highlight with blue on hover */
 }
 
-.course-display2-area {
-  grid-area: display2;
-  background-color: white;
-  border: 1px solid #d9d9d9;
-  border-radius: 8px;
-  overflow: hidden;
+/* Vertical Divider */
+.handle-vertical {
+  width: 8px;
+  cursor: col-resize;
+}
+.handle-vertical::after {
+  height: 100%;
+  width: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Horizontal Divider */
+.handle-horizontal {
+  height: 8px;
+  cursor: row-resize;
+}
+.handle-horizontal::after {
+  width: 100%;
+  height: 3px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 /* Custom scrollbar styling */
@@ -76,17 +125,26 @@ body {
   width: 8px;
   height: 8px;
 }
-
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 10px;
 }
-
 ::-webkit-scrollbar-thumb {
   background: #a8a8a8;
   border-radius: 10px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
   background: #888;
+}
+
+/* Disable heavy interactions during resize */
+body.resizing .course-selector-area {
+  pointer-events: none;
+}
+
+/* spacing between panels */
+.main-group,
+.sub-group,
+.sub-group-right {
+  gap: 4px;
 }
