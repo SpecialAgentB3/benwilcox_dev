@@ -114,6 +114,7 @@
     cursor: ew-resize;
     z-index: 2000;
     user-select: none;
+    touch-action: none;
     transition: background-color 0.2s;
 }
 
