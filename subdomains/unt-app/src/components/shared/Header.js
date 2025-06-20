@@ -84,11 +84,16 @@ const Header = () => {
                 UNT Historical Courses
             </div>
             <div className="header-section right">
-                <a href="https://github.com/BenWilcox8/UNT-Course-Catalog-App?tab=readme-ov-file#information" target="_blank" rel="noopener noreferrer">Information</a>
-                <a href="/courses.db" download>Download Data</a>
-                <button onClick={handleShare} className="share-button-header" title="Copy Share Link">
-                    {copied ? 'Copied!' : 'Share'} <FiShare2 />
-                </button>
+                <div className="top-right">
+                    <a href="https://unt.benwilcox.dev/info" target="_blank" rel="noopener noreferrer">Info/Data</a>
+                    <button onClick={handleShare} className="share-button-header" title="Copy Share Link">
+                        {copied ? 'Copied!' : 'Share'} <FiShare2 />
+                    </button>
+                </div>
+                <div className="bottom-right">
+                    <a href="https://buymeacoffee.com/benwilcox" target="_blank" rel="noopener noreferrer">Support Me</a>
+                    <a href="mailto:benjaminwilcox@my.unt.edu">Contact</a>
+                </div>
             </div>
         </div>
     );

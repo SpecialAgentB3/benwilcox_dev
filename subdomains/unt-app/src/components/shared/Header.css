@@ -36,8 +36,17 @@
 }
 
 .header-section.right {
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 5px;
+}
+
+.top-right, .bottom-right {
+  display: flex;
   justify-content: flex-end;
   gap: 20px;
+  width: 100%;
 }
 
 .header-section.right a,
