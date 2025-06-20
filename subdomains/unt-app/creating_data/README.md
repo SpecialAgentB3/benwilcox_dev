@@ -5,7 +5,13 @@ Files with a "0_" before them are used as input or intermediate files for the sc
 
 There are 4 output files (all_catalog.csv, all_offerings.csv, faculty.csv, courses.db), and 3 input files (semester_mapping.csv, 0_catalog_mapping.csv, 0_faculty_search_links.csv). **You must provide/generate the input files yourself for the code to work**; I have included the 3 that I generated in the folder.
 # Recreating/editing data
-I have included a venv (virtual environment) folder, and a requirements.txt file with all necessary libraries. After downloading and navigating to the "creating_data" folder, activate the venv with `source venv/bin/activate` (mac), and simply execute the python files.
+I have included a requirements.txt file with all necessary libraries for execution within a virtual environment. After downloading and navigating to the "creating_data" folder, create and activate the venv with the following console commands (mac):
+```zsh
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+After you have done this, simply execute the python files.
 
 Below are descriptions of each python file. More information and config options can be found in the header of each file.
 ## 1_generate_faculty.py
