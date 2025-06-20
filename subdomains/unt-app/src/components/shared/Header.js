@@ -77,7 +77,7 @@ const Header = () => {
                 <div>
                     Created by <a href="https://www.linkedin.com/in/benwilcox2005/" target="_blank" rel="noopener noreferrer">Benjamin Wilcox</a>
                     <br />
-                    Updated 6/14/2025
+                    Updated 6/20/2025
                 </div>
             </div>
             <div className="header-section middle">

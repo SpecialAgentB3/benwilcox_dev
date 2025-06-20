@@ -13,13 +13,15 @@
 }
 
 .semester-view-header-info {
-    width: 266px;
+    width: var(--info-width);
+    box-sizing: border-box; /* Include border */
     flex-shrink: 0;
     border-right: 1px solid #d9d9d9;
     position: sticky;
     left: 0;
     z-index: 31; /* Above timeline */
     background-color: #fafafa;
+    overflow: hidden;
 }
 
 .semester-view-header-toggles {
@@ -29,6 +31,8 @@
     gap: 4px;
     z-index: 31;
     padding: 8px;
+    white-space: nowrap; /* Prevent label wrapping */
+    overflow: hidden; /* Hide overflowed text */
 }
 
 .semester-view-header-timeline {
@@ -140,4 +144,9 @@
     width: 100%;
     height: 100%;
     gap: 2px;
+}
+
+.semester-view-header-toggles label {
+    white-space: nowrap;
+    overflow: hidden;
 }

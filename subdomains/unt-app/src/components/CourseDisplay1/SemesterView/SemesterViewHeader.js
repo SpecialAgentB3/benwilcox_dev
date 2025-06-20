@@ -74,6 +74,7 @@ const SemesterViewHeader = () => {
                         </div>
                     )}
                 </div>
+
                 <div className="semester-view-header-timeline">
                     {years.map(year => (
                         <div key={year} className="year-column-header" onClick={() => handleYearClick(year)}>

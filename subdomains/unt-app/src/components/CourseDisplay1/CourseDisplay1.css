@@ -1,9 +1,14 @@
 /* src/components/CourseDisplay1/CourseDisplay1.css */
+.course-display1-wrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
 .course-display1-container {
     height: 100%;
     display: flex;
     flex-direction: column;
-    position: relative;
     overflow: auto;
     width: 100%;
 }
@@ -24,11 +29,21 @@
     transition: background-color 0.2s;
     align-items: stretch;
     width: auto;
+    position: relative;
 }
 
 .course-row.active {
+    border-bottom: 1px solid #f0f0f0;
+    z-index: 1;
+}
+
+.course-row.active::after {
+    content: '';
+    position: absolute;
+    inset: 0;
     border: 2px dashed #1890ff;
-    box-sizing: border-box;
+    pointer-events: none;
+    z-index: 50;
 }
 
 .course-row:hover {
@@ -36,7 +51,8 @@
 }
 
 .course-info {
-    width: 250px;
+    width: var(--info-width);
+    box-sizing: border-box;
     flex-shrink: 0;
     padding: 8px;
     position: sticky;
@@ -45,6 +61,7 @@
     z-index: 25;
     border-right: 1px solid #d9d9d9;
     cursor: grab;
+    overflow: hidden;
 }
 
 .course-info-code {
@@ -86,4 +103,64 @@
     color: #bfbfbf;
     font-size: 16px;
     z-index: 1;
+}
+
+/* Resize handle styling */
+.info-resize-handle {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 12px;
+    cursor: ew-resize;
+    z-index: 2000;
+    user-select: none;
+    transition: background-color 0.2s;
+}
+
+/* Visible part of the handle */
+.info-resize-handle::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.03);
+    transition: background-color 0.2s;
+}
+
+.info-resize-handle:hover::before {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+/* New indicator styles */
+.info-resize-indicator-wrapper {
+    position: absolute;
+    left: var(--info-width);
+    top: 25px;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 30px;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #595959;
+    font-size: 10px;
+    z-index: 2001;
+    pointer-events: none;
+}
+
+.course-display1-wrapper.collapsed .course-info {
+    padding: 0;
+    border-right: none;
+
+}
+
+.course-display1-wrapper.collapsed .semester-view-header-info {
+    padding: 0;
+    border-right: none;
 }
