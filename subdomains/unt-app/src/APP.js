@@ -1,5 +1,6 @@
 // src/App.js
 import React, { useContext } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { PanelGroup, Panel, PanelResizeHandle } from 'react-resizable-panels';
@@ -11,21 +12,11 @@ import CourseSelector from './components/CourseSelector/CourseSelector';
 import CourseDisplay1 from './components/CourseDisplay1/CourseDisplay1';
 import CourseDisplay2 from './components/CourseDisplay2/CourseDisplay2';
 import CourseDetails from './components/CourseDetails/CourseDetails';
+import InfoPage from './pages/InfoPage';
 
 import './App.css';
 
-function App() {
-  const { dbLoading, loadingProgress, loadingMessage } = useContext(AppContext);
-
-  if (dbLoading) {
-    return (
-      <div className="loading-container">
-        <h1>Loading Database...</h1>
-        <ProgressBar progress={loadingProgress} message={loadingMessage} />
-      </div>
-    );
-  }
-
+function MainPage() {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="app-container">
@@ -61,6 +52,29 @@ function App() {
         </PanelGroup>
       </div>
     </DndProvider>
+  );
+}
+
+function App() {
+  const { dbLoading, loadingProgress, loadingMessage } = useContext(AppContext);
+
+  if (dbLoading) {
+    return (
+      <div className="loading-container">
+        <h1>Loading Database...</h1>
+        <p>This may take a few seconds.</p>
+        <ProgressBar progress={loadingProgress} message={loadingMessage} />
+      </div>
+    );
+  }
+
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/info" element={<InfoPage />} />
+      </Routes>
+    </Router>
   );
 }
 

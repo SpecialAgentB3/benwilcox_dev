@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { AppContext } from '../../contexts/AppContext';
 import { FiShare2 } from 'react-icons/fi';
 import './Header.css';
@@ -77,7 +78,7 @@ const Header = () => {
                 <div>
                     Created by <a href="https://www.linkedin.com/in/benwilcox2005/" target="_blank" rel="noopener noreferrer">Benjamin Wilcox</a>
                     <br />
-                    Updated 6/20/2025
+                    Updated 6/21/2025
                 </div>
             </div>
             <div className="header-section middle">
@@ -85,7 +86,7 @@ const Header = () => {
             </div>
             <div className="header-section right">
                 <div className="top-right">
-                    <a href="https://unt.benwilcox.dev/info" target="_blank" rel="noopener noreferrer">Info/Data</a>
+                    <Link to="/info">Info/Data</Link>
                     <button onClick={handleShare} className="share-button-header" title="Copy Share Link">
                         {copied ? 'Copied!' : 'Share'} <FiShare2 />
                     </button>

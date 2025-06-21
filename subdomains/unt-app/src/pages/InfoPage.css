@@ -1,0 +1,294 @@
+/* Overall page container */
+.info-page-container {
+  padding: 1rem 2rem; /* Add some padding to the sides */
+  max-width: 1200px; /* Optional: constrain max width for large screens */
+  margin: 0 auto; /* Center the content */
+}
+
+/* Page Title */
+.main-title {
+  font-size: 2.5rem;
+  text-align: center;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+/* Header for the 'Back' link */
+.info-header {
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 2rem;
+}
+
+/* Scrollytelling section styles */
+.scrolly-section {
+  display: grid;
+  grid-template-columns: 55% 40%; /* Left for text, right for image */
+  gap: 5%;
+}
+
+.info-section-container {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1rem 2rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.info-section-container h2 {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+/* Add new rules for spacing between sections */
+.info-page-container > section,
+.info-page-container > .info-section-container {
+  margin-bottom: 2rem;
+}
+
+.info-page-container > :last-child {
+  margin-bottom: 0;
+}
+
+.text-content {
+  line-height: 1.6;
+}
+
+.text-content h1,
+.text-content h2,
+.text-content h3,
+.text-content h4 {
+  margin-top: 1.25rem;
+  margin-bottom: 0;
+}
+
+/* Reduce space between heading and the element right after it */
+.text-content h1 + *,
+.text-content h2 + *,
+.text-content h3 + *,
+.text-content h4 + * {
+  margin-top: 0.5rem;
+}
+
+/* The magic for the sticky image */
+.sticky-image-container {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 2rem;
+  align-self: start;
+  width: fit-content;
+  justify-self: center;
+}
+
+.sticky-image-container img {
+  max-width: 100%;
+  max-height: 600px;
+  height: auto;
+  border-radius: 8px; /* Optional: nice rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+}
+
+/* Clickable overlay links on images */
+.image-overlay-link {
+  position: absolute;
+  display: block;
+  z-index: 1; /* Default (h3) */
+  border-radius: 8px; /* Match image rounding */
+  /* For debugging h3 overlays, uncomment the line below */
+  /* background-color: rgba(0, 123, 255, 0.2); */
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.image-overlay-link.overlay-level-2 {
+  z-index: 2; /* h4 overlays are on top */
+  /* For debugging h4 overlays, uncomment the line below */
+  /* background-color: rgba(255, 0, 123, 0.2); */
+}
+
+.image-overlay-link:hover {
+  border-color: rgba(0, 123, 255, 0.8); /* Highlight with blue on hover */
+}
+
+/* --- Positioning for overlays on the Full Layout image --- */
+/* To adjust, change the top, left, width, and height values. */
+/* All values are percentages of the image size. */
+
+#overlay-course-selector {
+  top: 4%;
+  left: 2%;
+  width: 23%;
+  height: 47%;
+}
+
+#overlay-course-details {
+  top: 55%;
+  left: 2%;
+  width: 23%;
+  height: 36%;
+}
+
+#overlay-course-display-1 {
+  top: 14%;
+  left: 27.5%;
+  width: 68%;
+  height: 50%;
+}
+
+#overlay-course-display-2 {
+  top: 68%;
+  left: 28%;
+  width: 67%;
+  height: 24%;
+}
+
+/* --- Positioning for overlays on the Course Selector image --- */
+#overlay-cs-course-list {
+  top: 9%;
+  left: 9%;
+  width: 64%;
+  height: 42%;
+}
+#overlay-cs-group-selector {
+  top: 54%;
+  left: 11%;
+  width: 64%;
+  height: 41%;
+}
+#overlay-cs-auto-pin {
+  top: 11%;
+  left: 11%;
+  width: 25%;
+  height: 3%;
+}
+#overlay-cs-search-bar {
+  top: 15.5%;
+  left: 11%;
+  width: 60%;
+  height: 3%;
+}
+#overlay-cs-pinning {
+  top: 20%;
+  left: 11%;
+  width: 59%;
+  height: 6%;
+}
+#overlay-cs-list-detail {
+  top: 28%;
+  left: 13%;
+  width: 57%;
+  height: 15%;
+}
+#overlay-cs-catalog-list {
+  top: 69%;
+  left: 15%;
+  width: 57%;
+  height: 25%;
+}
+
+/* --- Positioning for overlays on the Course Display 1 image --- */
+#overlay-cd1-all-years {
+  top: 10%;
+  left: 2%;
+  width: 20%;
+  height: 4%;
+}
+#overlay-cd1-semester-cells {
+  top: 21%;
+  left: 25%;
+  width: 73%;
+  height: 16%;
+}
+#overlay-cd1-semester-bars {
+  top: 39%;
+  left: 25%;
+  width: 73%;
+  height: 15%;
+}
+#overlay-cd1-granular-view {
+  top: 2%;
+  left: 2%;
+  width: 20%;
+  height: 6%;
+}
+
+/* --- Positioning for overlays on the Course Info image --- */
+#overlay-ci-links {
+  top: 31%;
+  left: 6%;
+  width: 34%;
+  height: 24%;
+}
+#overlay-ci-listing-info {
+  top: 31%;
+  left: 44%;
+  width: 47%;
+  height: 38%;
+}
+#overlay-ci-description {
+  top: 72%;
+  left: 6%;
+  width: 85%;
+  height: 19%;
+}
+
+/* --- Positioning for overlays on the Course Display 2 image --- */
+#overlay-cd2-specifiers {
+  top: 6%;
+  left: 3%;
+  width: 24%;
+  height: 79%;
+}
+#overlay-cd2-course-cells {
+  top: 10%;
+  left: 29%;
+  width: 64%;
+  height: 76%;
+}
+
+/* Section that spans the full width */
+.full-width-section {
+  padding: 2rem 0;
+  border-bottom: 1px solid #eee;
+  line-height: 1.6;
+}
+
+.full-width-section:last-child {
+  border-bottom: none;
+}
+
+.full-width-section h2,
+.full-width-section h3 {
+  margin-top: 1.25rem;
+  margin-bottom: 0;
+}
+
+/* Reduce space between heading and the element right after it */
+.full-width-section h2 + *,
+.full-width-section h3 + * {
+  margin-top: 0.5rem;
+}
+
+.full-width-section ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.full-width-section li {
+  margin-bottom: 1rem;
+}
+
+/* Indent paragraphs under sub-headers */
+.indent {
+  margin-left: 1.5rem;
+  padding-left: 1.5rem;
+  border-left: 2px solid #eee;
+}
+
+/* General list styling */
+ul {
+  padding-left: 20px;
+} 

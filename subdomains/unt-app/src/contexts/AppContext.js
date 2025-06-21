@@ -12,10 +12,11 @@ import {
 export const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const { db, loading: dbLoading } = useDatabase();
+  const { db, loading: dbLoading, progress: dbProgress } = useDatabase();
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [loadingMessage, setLoadingMessage] = useState('');
   const [semesterMapping, setSemesterMapping] = useState([]);
+  const [appLoading, setAppLoading] = useState(true);
 
   // All Courses state
   const [allCourses, setAllCourses] = useState([]);
@@ -47,6 +48,21 @@ export const AppProvider = ({ children }) => {
   // URL State Hydration
   const [initializationDone, setInitializationDone] = useState(false);
 
+  // --- ACTIVE COURSE LOGIC ---
+  const setAsActiveCourse = useCallback(async (course, year = null, semester = null) => {
+      setActiveCourse(course);
+      if (db && course) {
+          const allCatalog = await fetchAllCatalogForCourse(db, course.main_course_id);
+          const allCatalogIds = allCatalog.map(c => c.main_catalog_id);
+          const offerings = await fetchAllOfferingsForCatalogIds(db, allCatalogIds);
+          
+          const updatedCourse = { ...course, catalog: allCatalog, offerings };
+          setActiveCourse(updatedCourse);
+      } else {
+          setActiveCourse(null);
+      }
+  }, [db]);
+
   // --- DATA LOADING ---
   useEffect(() => {
     // Load semester_mapping.csv
@@ -64,9 +80,11 @@ export const AppProvider = ({ children }) => {
     if (db) {
       const initializeSearch = async () => {
         setLoadingMessage('Loading courses...');
-        setLoadingProgress(25);
-        // 1. Fetch all main courses and create a lookup map
+        setLoadingProgress(10);
+        // step fetch courses
         const courses = await fetchAllCourses(db);
+        setLoadingProgress(30);
+        // 1. Fetch all main courses and create a lookup map
         const courseMap = new Map();
         courses.forEach(course => {
           courseMap.set(course.main_course_id, course);
@@ -117,6 +135,8 @@ export const AppProvider = ({ children }) => {
         });
         setFuse(fuseInstance);
         setLoadingProgress(100);
+        setLoadingMessage('Initialization complete');
+        setAppLoading(false);
       };
       initializeSearch();
     }
@@ -171,7 +191,7 @@ export const AppProvider = ({ children }) => {
       
       setInitializationDone(true);
     }
-  }, [db, fuse, mainCourseMap, initializationDone]);
+  }, [db, fuse, mainCourseMap, initializationDone, setAsActiveCourse]);
 
   // --- SEARCH LOGIC ---
   const handleSearch = useCallback((term) => {
@@ -241,30 +261,23 @@ export const AppProvider = ({ children }) => {
     });
   };
 
+  // --- SPECIFIER LOGIC (FOR DISPLAY 2) ---
+  // const updateActiveYears = (year, isChecked) => {
+  //   // Implementation of updateActiveYears function
+  // };
 
-  // --- ACTIVE COURSE LOGIC ---
-  const setAsActiveCourse = useCallback(async (course, year = null, semester = null) => {
-      setActiveCourse(course);
-      if (db && course) {
-          const allCatalog = await fetchAllCatalogForCourse(db, course.main_course_id);
-          const allCatalogIds = allCatalog.map(c => c.main_catalog_id);
-          const offerings = await fetchAllOfferingsForCatalogIds(db, allCatalogIds);
-
-          const relevantYears = [...new Set(offerings.map(o => o.year))].sort((a,b) => b-a);
-          const relevantSemesters = [...new Set(offerings.map(o => o.specific_semester))];
-
-          setActiveYears(year ? [year] : relevantYears);
-          setActiveSemesters(semester ? (Array.isArray(semester) ? semester : [semester]) : relevantSemesters);
-      } else {
-          setActiveYears([]);
-          setActiveSemesters([]);
-      }
-  }, [db]);
-
+  // new effect to sync progress
+  useEffect(() => {
+    if (dbLoading) {
+      setLoadingMessage('Downloading database...');
+      setLoadingProgress(dbProgress * 0.5); // 0-50
+    }
+  }, [dbLoading, dbProgress]);
 
   const value = {
     db,
     dbLoading,
+    dbProgress,
     loadingProgress,
     loadingMessage,
     semesterMapping,
@@ -296,6 +309,7 @@ export const AppProvider = ({ children }) => {
     setShowCourseCount,
     courseGroupSelection,
     setCourseGroupSelection,
+    appLoading,
   };
 
   return (

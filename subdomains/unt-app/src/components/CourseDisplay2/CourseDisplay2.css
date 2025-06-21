@@ -143,7 +143,6 @@
     width: 4px;
     cursor: ew-resize;
     z-index: 51;
-    background-color: rgba(0, 0, 0, 0.03);
     transition: background-color 0.2s;
     user-select: none;
     touch-action: none;
