@@ -37,6 +37,10 @@ Creates Course Groups based on a 8-part grouping algorithm; "updates" the file "
 
 For clarity, I have attached an image of an early set of grouping methods I used to create Course Groups:
 
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/8b7fcc97-d063-4a46-9594-0a9b67f13e80" width="300" alt="Group Catalog Listings">
+</div>
+
 Explanation:
 * The script first groups together all Catalog Listings that have the exact same Name and Course Code. This forms the first set of groups.
 * It then appends to/creates groups that have the same course code and "Normalized Name" (removes special characters and spaces)
@@ -51,6 +55,10 @@ Pairs every Course Offering in "0_all_offerings.csv" to a Course Listing in "0_a
 The methodology for pairing Course Offerings to Course Listings is largely the same as creating course Groups in "4_catalog_groups.py". I use a 14-part pairing algorithm that successively matches Course Offerings to Course Listings using broader constraints each time.
 
 For clarity, I have attached an image of an early set of methods I used to create Course Pairings:
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/00ec2c8b-01aa-4d46-b124-467556fad98b" width="300" alt="Group Catalog Listings">
+</div>
 
 Explanation:
 * The script first pairs Offerings and Listings that have the exact same Course Code + Course Name.
