@@ -10,14 +10,14 @@ const YearSpecifier = () => {
     const [isDragging, setIsDragging] = useState(false);
 
     useEffect(() => {
-        if(db && activeCourse) {
-            const getYears = async () => {
-                const catalogs = await fetchAllCatalogForCourse(db, activeCourse.main_course_id);
+        if (activeCourse && activeCourse.offerings) {
+            const getYears = () => {
+                const catalogs = activeCourse.catalog || [];
                 const selectedCatalogs = catalogs.filter(c => courseGroupSelection[c.main_catalog_id] !== false);
-                const catalogIds = selectedCatalogs.map(c => c.main_catalog_id);
+                const catalogIds = new Set(selectedCatalogs.map(c => c.main_catalog_id));
 
-                if (catalogIds.length > 0) {
-                    const offerings = await fetchAllOfferingsForCatalogIds(db, catalogIds);
+                if (catalogIds.size > 0) {
+                    const offerings = activeCourse.offerings.filter(o => catalogIds.has(o.main_catalog_id));
                     const years = [...new Set(offerings.map(o => o.year))].sort((a,b) => b-a);
                     setAllRelevantYears(years);
                 } else {
@@ -28,7 +28,7 @@ const YearSpecifier = () => {
         } else {
             setAllRelevantYears([]);
         }
-    }, [db, activeCourse, courseGroupSelection]);
+    }, [activeCourse, courseGroupSelection]);
     
     const handleYearChange = (year) => {
         setActiveYears(prev => {

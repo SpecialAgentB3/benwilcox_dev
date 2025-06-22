@@ -1,51 +1,46 @@
-import React, { useContext, useEffect, useState, useRef, useCallback } from 'react';
+import React, { useContext, useEffect, useState, useCallback, useRef } from 'react';
 import { AppContext } from '../../contexts/AppContext';
-import { fetchAllCatalogForCourse, fetchAllOfferingsForCatalogIds } from '../../utils/dataUtils';
 import Checkbox from '../shared/Checkbox';
 
 const SemesterSpecifier = () => {
-    const { db, activeCourse, activeSemesters, setActiveSemesters, semesterMapping, courseGroupSelection } = useContext(AppContext);
+    const { activeCourse, activeSemesters, setActiveSemesters, courseGroupSelection, semesterMapping } = useContext(AppContext);
     const [allRelevantSemesters, setAllRelevantSemesters] = useState([]);
     const semesterContainerRef = useRef(null);
     const [isDragging, setIsDragging] = useState(false);
-    
-    useEffect(() => {
-        if(db && activeCourse) {
-            const getSemesters = async () => {
-                const catalogs = await fetchAllCatalogForCourse(db, activeCourse.main_course_id);
-                const selectedCatalogs = catalogs.filter(c => courseGroupSelection[c.main_catalog_id] !== false);
-                const catalogIds = selectedCatalogs.map(c => c.main_catalog_id);
-                
-                if (catalogIds.length > 0) {
-                    const offerings = await fetchAllOfferingsForCatalogIds(db, catalogIds);
-                    const semesters = [...new Set(offerings.map(o => o.specific_semester))];
-                    
-                    const sorted = semesters.sort((a,b) => {
-                        const mappingA = semesterMapping.find(m => m['Specific Semester'] === a);
-                        const mappingB = semesterMapping.find(m => m['Specific Semester'] === b);
-                        
-                        // If mappings are not found, put them at the end
-                        if (!mappingA && !mappingB) return 0;
-                        if (!mappingA) return 1;
-                        if (!mappingB) return -1;
 
-                        return mappingA['Semester Order'] - mappingB['Semester Order'];
+    useEffect(() => {
+        if (activeCourse && activeCourse.offerings && semesterMapping.length > 0) {
+            const getSemesters = () => {
+                const catalogs = activeCourse.catalog || [];
+                const selectedCatalogs = catalogs.filter(c => courseGroupSelection[c.main_catalog_id] !== false);
+                const catalogIds = new Set(selectedCatalogs.map(c => c.main_catalog_id));
+
+                if (catalogIds.size > 0) {
+                    const offerings = activeCourse.offerings.filter(o => catalogIds.has(o.main_catalog_id));
+                    const specificSemesters = [...new Set(offerings.map(o => o.specific_semester))];
+                    
+                    const semesterOrderMap = new Map(
+                        semesterMapping.map(s => [s.specific_semester, s['Semester Order']])
+                    );
+
+                    specificSemesters.sort((a, b) => {
+                        return (semesterOrderMap.get(a) || 0) - (semesterOrderMap.get(b) || 0);
                     });
 
-                    setAllRelevantSemesters(sorted);
+                    setAllRelevantSemesters(specificSemesters);
                 } else {
                     setAllRelevantSemesters([]);
                 }
-            }
+            };
             getSemesters();
         } else {
             setAllRelevantSemesters([]);
         }
-    }, [db, activeCourse, semesterMapping, courseGroupSelection]);
+    }, [activeCourse, courseGroupSelection, semesterMapping]);
 
     const handleSemesterChange = (semester) => {
         setActiveSemesters(prev => {
-            if(prev.includes(semester)){
+            if (prev.includes(semester)) {
                 return prev.filter(s => s !== semester);
             } else {
                 return [...prev, semester];
@@ -61,7 +56,7 @@ const SemesterSpecifier = () => {
             const range = selection.getRangeAt(0);
             const container = semesterContainerRef.current;
             const selectedItems = new Set();
-    
+
             if (container) {
                 for (const child of container.children) {
                     if (range.intersectsNode(child)) {
@@ -99,9 +94,9 @@ const SemesterSpecifier = () => {
             <h4 onClick={handleToggleAll} style={{ cursor: 'pointer' }}>Semesters</h4>
             <div className="specifier-list" ref={semesterContainerRef} onMouseDown={() => setIsDragging(true)}>
                 {allRelevantSemesters.map(semester => (
-                     <Checkbox
+                    <Checkbox
                         key={semester}
-                        id={`sem-${semester}`}
+                        id={`semester-${semester}`}
                         label={semester}
                         checked={activeSemesters.includes(semester)}
                         onChange={() => handleSemesterChange(semester)}

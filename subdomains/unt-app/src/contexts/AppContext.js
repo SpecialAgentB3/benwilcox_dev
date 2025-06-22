@@ -50,18 +50,39 @@ export const AppProvider = ({ children }) => {
 
   // --- ACTIVE COURSE LOGIC ---
   const setAsActiveCourse = useCallback(async (course, year = null, semester = null) => {
-      setActiveCourse(course);
-      if (db && course) {
-          const allCatalog = await fetchAllCatalogForCourse(db, course.main_course_id);
-          const allCatalogIds = allCatalog.map(c => c.main_catalog_id);
-          const offerings = await fetchAllOfferingsForCatalogIds(db, allCatalogIds);
-          
-          const updatedCourse = { ...course, catalog: allCatalog, offerings };
-          setActiveCourse(updatedCourse);
-      } else {
-          setActiveCourse(null);
-      }
-  }, [db]);
+    setActiveCourse(course);
+
+    if (db && course) {
+        const allCatalog = await fetchAllCatalogForCourse(db, course.main_course_id);
+        const allCatalogIds = allCatalog.map(c => c.main_catalog_id);
+        const offerings = await fetchAllOfferingsForCatalogIds(db, allCatalogIds);
+        
+        const updatedCourse = { ...course, catalog: allCatalog, offerings };
+        setActiveCourse(updatedCourse);
+
+        if (year !== null && semester !== null) {
+            // A specific semester bar was clicked
+            setActiveYears([year]);
+            if (Array.isArray(semester)) {
+                setActiveSemesters(semester);
+            } else {
+                setActiveSemesters([semester]);
+            }
+        } else {
+            // General activation (e.g., clicking course info)
+            // Enable all relevant years and semesters
+            const allYears = [...new Set(offerings.map(o => o.year))].sort((a, b) => b - a);
+            const allSemesters = [...new Set(offerings.map(o => o.specific_semester))];
+            setActiveYears(allYears);
+            setActiveSemesters(allSemesters);
+        }
+    } else {
+        // No course is active, clear everything
+        setActiveCourse(null);
+        setActiveYears([]);
+        setActiveSemesters([]);
+    }
+}, [db]);
 
   // --- DATA LOADING ---
   useEffect(() => {
@@ -70,8 +91,10 @@ export const AppProvider = ({ children }) => {
       download: true,
       header: true,
       dynamicTyping: true,
+      skipEmptyLines: true,
       complete: (results) => {
-        setSemesterMapping(results.data);
+        const sortedMapping = results.data.sort((a, b) => a['Semester Order'] - b['Semester Order']);
+        setSemesterMapping(sortedMapping);
       },
     });
   }, []);
