@@ -1,6 +1,7 @@
 // src/App.js
 import React, { useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { SpeedInsights } from "@vercel/speed-insights/react"
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { PanelGroup, Panel, PanelResizeHandle } from 'react-resizable-panels';
@@ -70,6 +71,7 @@ function App() {
 
   return (
     <Router>
+      <SpeedInsights />
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/info" element={<InfoPage />} />
