@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState, useRef, useCallback } from 'react';
 import { AppContext } from '../../contexts/AppContext';
-import { fetchAllCatalogForCourse, fetchAllOfferingsForCatalogIds } from '../../utils/dataUtils';
 import Checkbox from '../shared/Checkbox';
 
 const YearSpecifier = () => {
-    const { db, activeCourse, activeYears, setActiveYears, courseGroupSelection } = useContext(AppContext);
+    const { activeCourse, activeYears, setActiveYears, courseGroupSelection } = useContext(AppContext);
     const [allRelevantYears, setAllRelevantYears] = useState([]);
     const yearContainerRef = useRef(null);
     const [isDragging, setIsDragging] = useState(false);
