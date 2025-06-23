@@ -1,6 +1,7 @@
 // src/App.js
 import React, { useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/react"
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -71,6 +72,7 @@ function App() {
 
   return (
     <Router>
+      <Analytics />
       <SpeedInsights />
       <Routes>
         <Route path="/" element={<MainPage />} />
